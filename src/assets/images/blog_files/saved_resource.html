@@ -1,0 +1,15 @@
+
+<!-- saved from url=(0011)about:blank -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></head><body><div id="webpack-dev-server-client-overlay-div" style="position: fixed; box-sizing: border-box; left: 0px; top: 0px; right: 0px; bottom: 0px; width: 100vw; height: 100vh; background-color: rgba(0, 0, 0, 0.85); color: rgb(232, 232, 232); font-family: Menlo, Consolas, monospace; font-size: large; padding: 2rem; line-height: 1.2; white-space: pre-wrap; overflow: auto;"><span style="color: #E36049">Failed to compile.</span><br><br>./src/views/edit/index.vue
+Module Error (from ./node_modules/eslint-loader/index.js):
+<span style="color:#E36049;">error</span>: <span style="font-weight:bold;">'E' is already defined</span> <span style="opacity:0.5;">(no-redeclare)</span> at <span style="color:#B3CB74;">src\views\edit\index.vue:13:9</span>:
+  11 |     // 引用
+  12 |     var E = require('wangeditor')  // 使用 npm 安装
+&gt; 13 |     var E = require('/wangEditor.min.js')  // 使用下载的源码
+     |         ^
+  14 | 
+  15 |     // 创建编辑器
+  16 |     var editor = new E('#editor')
+
+
+<span style="color:#E36049;"><span style="font-weight:bold;">1 error found.</span></span></div></body></html>
