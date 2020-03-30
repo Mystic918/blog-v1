@@ -4,12 +4,15 @@
             <div class="edit-title">
                 <div>
                     <el-form ref="form" label-position="left" label-width="80px" :model="form">
+                        <div class="block-wrap">
+                                
                         <el-form-item label="标题：" prop="ext_title" :rules="[{required:true,message:'请输入标题'},{pattern:/\S/g,message:'请输入标题'}]">
                            <el-input v-model="form.ext_title" placeholder="请输入标题" prefix-icon="el-icon-edit"></el-input>
                        </el-form-item>
                         <el-form-item label="作者：" prop="ext_author" :rules="[{required:true,message:'请输入作者'},{pattern:/\S/g,message:'请输入作者'}]">
                            <el-input v-model="form.ext_author" placeholder="请输入来源" prefix-icon="el-icon-edit"></el-input>
                        </el-form-item>
+                       
 
                         <el-form-item label="类型：" prop="ext_classes" :rules="[{required:true,message:'请选择类型'},{pattern:/\S/g,message:'请选择类型'}]">
 
@@ -38,6 +41,11 @@
                             </el-date-picker>
                             
                        </el-form-item>
+
+                        </div>
+
+
+
                         <el-form-item label="封面图：" prop="ext_img">
                                 <el-upload
                                 :limit="1" 
@@ -60,7 +68,7 @@
             </div>
           
         </div>
-    </div>
+    </div> 
 </div>
 </template>
 
@@ -68,7 +76,8 @@
 
 import HttpUtils from '@/utils/HttpUtils'
 import PageUtils from '@/utils/PageUtils'
-import {Message} from '@/utils/GetInfo'
+// import store from '@/store'
+import { mapState } from 'vuex'
 
     export default {
         name: "index",
@@ -81,11 +90,14 @@ import {Message} from '@/utils/GetInfo'
                 token:''
             }
         },
+        computed: {
+            ...mapState(['token','usernameId'])
+        }
+        ,
         mounted(){
             const that = this
-            let msg = new Message(window.sessionStorage.getItem('blog_info'))
-            let id = msg.getId()
-            that.token = msg.getToken()
+            that.token = that.$store.state.token
+            let id = that.$store.state.usernameId
             if(id){
                that.form.ext_user_id = id
             }else{
@@ -97,7 +109,7 @@ import {Message} from '@/utils/GetInfo'
         methods:{
             getClasses(){
             const that = this
-                    HttpUtils.get('/api/public/getclasses').then(result=>{
+                    HttpUtils.get('/public/getclasses').then(result=>{
                         that.selects = result.data.data
                     }
                 )
@@ -113,16 +125,15 @@ import {Message} from '@/utils/GetInfo'
                     return false;
                     }
                     formData.append('file', file.raw);
-                    HttpUtils.post('/api/information/uploadimg2', formData, headerConfig).then(res => {
+                    HttpUtils.post('/information/uploadimg2', formData, headerConfig).then(res => {
                     this.form.ext_pic = res.data.url
                     })
-                    //  window.console.log(file.url);
         },
             send:async function (){
                 const that = this 
                 let valid = await PageUtils.validate(that.$refs['form'])
                 if(valid){
-                    HttpUtils.post('/api/information/PublishContent',that.form).then(rs=>{
+                    HttpUtils.post('/information/PublishContent',that.form).then(rs=>{
                         window.console.log(rs)
                         if(rs.data.code===200){
                             alert(rs.data.data)
@@ -145,8 +156,8 @@ import {Message} from '@/utils/GetInfo'
                     'authorization': 'Bearer '+that.token
                 }// 自定义 header
                 this.editor.customConfig.uploadFileName = 'mypic' // 后端接受上传文件的参数名
-                this.editor.customConfig.uploadImgMaxSize = 1 * 1024 * 1024 // 将图片大小限制为 2M
-                this.editor.customConfig.uploadImgMaxLength = 6 // 限制一次最多上传 3 张图片
+                this.editor.customConfig.uploadImgMaxSize = 1 * 1024 * 1024 // 将图片大小限制为 1M
+                this.editor.customConfig.uploadImgMaxLength = 6 // 限制一次最多上传 6 张图片
                 this.editor.customConfig.uploadImgTimeout = 3 * 60 * 1000 // 设置超时时间
 
                 // 配置菜单
@@ -216,11 +227,19 @@ import {Message} from '@/utils/GetInfo'
 .edit-main{
     margin: 30px auto;
     width: 1200px;
-    min-height: 900px;
+    min-height: 600px;
     .edit-title{
         height: 40px;
         line-height: 40px;
         font-size: 18px;
+        .block-wrap{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            .el-form-item{
+                margin-right: 20px;
+            }
+        }
     }
     #editor{
         // min-height: 600px;

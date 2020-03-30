@@ -27,8 +27,9 @@
 </template>
 
 <script>
-    import Qs from 'qs'
+    // import Qs from 'qs'
     import List from '@/components/list'
+    import HttpUtils from '@/utils/HttpUtils'
     export default {
         name: "index",
         data(){
@@ -41,8 +42,8 @@
         },
         mounted(){
 
-            this.axios.post('/api/information/getpersonalList',
-                Qs.stringify( {"username":this.$store.state.username,"token":this.$store.state.Token})
+            HttpUtils.post('/information/getpersonalList',
+                {"username":this.$store.state.username,"token":this.$store.state.Token}
             ).then((result)=>{
                 window.console.log(result)
                 this.list = result.data.data

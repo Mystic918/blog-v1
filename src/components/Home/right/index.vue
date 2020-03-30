@@ -70,7 +70,7 @@
             getDocument(page,number){
                          const _this = this
                 const params = {"page":page,"number":number}
-                    HttpUtils.get('/api/public/getDocument',params).then(rs=>{
+                    HttpUtils.get('/public/getDocument',params).then(rs=>{
                 if(page<=rs.data.page){
                             _this.count=rs.data.count
                                 if( rs.data.code===200){
@@ -87,7 +87,7 @@
             gethot(page,number){
                                          const _this = this
                 const params = {"page":page,"number":number}
-                    HttpUtils.get('/api/public/gethot',params).then(rs=>{ 
+                    HttpUtils.get('/public/gethot',params).then(rs=>{ 
                 if(page<=rs.data.page){
                             _this.count=rs.data.count
                                 if( rs.data.code===200){

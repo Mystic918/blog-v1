@@ -1,16 +1,14 @@
 import axios from 'axios'
-// import PageUtils from './PageUtils'
-import {Message} from './GetInfo'
-let msg = new Message(window.sessionStorage.getItem('blog_info'))
-let token = msg.getToken()
+import store from '@/store'
+let token = store.state.token
 let headers = {}
-window.console.log(msg)
+// window.console.log(msg)
 if(token){
    
     headers =   {'authorization': 'Bearer '+token}
 }
 let Axios = axios.create({
-    baseURL: '/',
+    baseURL: '/api',
     timeout: 1000,
     headers: headers
 });

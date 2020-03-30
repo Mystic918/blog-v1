@@ -21,9 +21,7 @@
 
 <script>
 import HttpUtils from '@/utils/HttpUtils'
-import {Message} from '@/utils/GetInfo'
 import base64 from 'js-base64'
-    // import Qs from 'qs'
     export default {
         name: "information",
         data(){
@@ -44,22 +42,23 @@ import base64 from 'js-base64'
                     username: this.username,
                     password: base64.Base64.encode(this.password)
                     }
-                    HttpUtils.post('/api/PersonalCenter/login',params).then(result=>{
-                        // window.console.log(result)
-                        
+                    HttpUtils.post('/PersonalCenter/login',params).then(result=>{
+                        window.console.log(result)
                         if(result.data.code===200){
-                            // params.token = result.data.Token 
-                            // window.console.log(params)
                             let blog_info = JSON.parse(base64.Base64.decode(result.data.msg))
+                            let usernameId = blog_info.id
+                            window.console.log(blog_info)
                             blog_info.token=result.data.Token
                             blog_info = base64.Base64.encode(JSON.stringify(blog_info))
                             _this.$store.commit('SET_BLOG_INFO',blog_info)
                             _this.$store.commit('SET_USERNAME',_this.username)
+                            _this.$store.commit('SET_USERNAME_ID',result.data.id)
+                            _this.$store.commit('SET_TOKEN',result.data.Token)
+                            window.sessionStorage.setItem('token',result.data.Token)
+                            window.sessionStorage.setItem('usernameId',usernameId)
                             window.sessionStorage.setItem('blog_info',blog_info)
                             window.sessionStorage.setItem('username',_this.username)
                               history.go(-1)
-                            let message = new Message(blog_info)
-                            window.console.log(message.getToken())
                         }else if(result.data.code==404){
                             alert("账户或密码错误！！！")
                         }else{

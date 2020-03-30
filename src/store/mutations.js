@@ -10,8 +10,16 @@ const mutations = {
     CLEAR_SESSION(state){
         state.username=null
         state.blog_info=null
+        state.userId=null
+        state.token=null
         window.sessionStorage.removeItem('username')
         window.sessionStorage.removeItem('blog_info')
+    },
+    SET_USERNAME_ID(state,data){
+        state.usernameId=data
+    },
+    SET_TOKEN(state,data){
+        state.token=data
     }
 }
 export  default mutations

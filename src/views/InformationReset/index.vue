@@ -55,7 +55,7 @@
                     return
                 }
 
-                this.axios.post('/api/PersonalCenter/register',
+                this.axios.post('/PersonalCenter/register',
                     Qs.stringify(  {"username":this.username, "password": this.password})
                 ).then((result)=>{
                     if(result.data.code==200){

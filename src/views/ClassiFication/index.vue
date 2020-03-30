@@ -74,7 +74,7 @@
                             
                     } 
                     if(classes.toString()=="hot"){
-                       await HttpUtils.get('/api/public/gethot',params).then(result=>{
+                       await HttpUtils.get('/public/gethot',params).then(result=>{
                                  if(page<=result.data.page){
                                         that.count=result.data.count 
                                             if( result.data.code===200){
@@ -86,7 +86,7 @@
                                         }
                             })
                     }else if(classes.toString()=="news"){
-                        await    HttpUtils.get('/api/public/getdocument',params).then(result=>{
+                        await    HttpUtils.get('/public/getdocument',params).then(result=>{
                                 
                                        if(page<=result.data.page){
                                         that.count=result.data.count 
@@ -103,7 +103,7 @@
                             })
                     }else{
                         params = {"page":page,"number":number,"classes":classes}
-                         await   HttpUtils.get('/api/public/getchan',params).then(result=>{
+                         await   HttpUtils.get('/public/getchan',params).then(result=>{
                                  if(page<=result.data.page){
                                         that.count=result.data.count 
                                             if( result.data.code===200){

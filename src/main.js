@@ -6,7 +6,15 @@ import Element from 'element-ui'
 //import axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/iconfont/iconfont.css'
+// import base64 from 'js-base64'
 
+// router.beforeEach((to, from, next) => {
+//     let blog_info = JSON.parse(base64.Base64.decode(window.sessionStorage.blog_info))
+//     if(blog_info.token&&blog_info.token||blog_info.username){
+//         next()
+//     }
+  
+// })
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 //axios.defaults.headers.post['Content-Type'] = 'application/json';

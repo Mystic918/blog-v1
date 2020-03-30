@@ -25,7 +25,7 @@ import HttpUtils from '@/utils/HttpUtils'
             const that = this
             let docId = this.$route.params.docid
             window.console.log(docId)
-            HttpUtils.get('/api/public/getcontent',{docid:docId}).then((result)=>{
+            HttpUtils.get('/public/getcontent',{docid:docId}).then((result)=>{
                this.content = result.data.data[0]
                window.console.log(result)
                that.classes = result.data.data[0].name
